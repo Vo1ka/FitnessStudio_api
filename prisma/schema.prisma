@@ -1,70 +1,82 @@
 generator client {
-provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
+
 datasource db {
-provider = "postgresql"
-url      = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
+
 model User {
-id        String   @id @default(cuid())
-email     String   @unique
-password  String
-name      String
-role      Role     @default(USER)
-bookings  Booking[]
-createdAt DateTime @default(now())
-updatedAt DateTime @updatedAt
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String
+  role      Role     @default(USER)
+  bookings  Booking[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
+
 enum Role {
-USER
-ADMIN
+  USER
+  ADMIN
 }
+
 model Coach {
-id        String         @id @default(cuid())
-name      String
-bio       String?
-avatarUrl String?
-sessions  ClassSession[]
+  id        String         @id @default(cuid())
+  name      String
+  bio       String?
+  avatarUrl String?
+  sessions  ClassSession[]
 }
+
 model ClassType {
-id              String         @id @default(cuid())
-title           String
-description     String?
-durationMinutes Int
-intensity       Intensity
-sessions        ClassSession[]
+  id              String         @id @default(cuid())
+  title           String
+  description     String?
+  durationMinutes Int
+  intensity       Intensity
+  sessions        ClassSession[]
 }
+
 enum Intensity {
-LOW
-MEDIUM
-HIGH
+  LOW
+  MEDIUM
+  HIGH
 }
+
 model ClassSession {
-id          String     @id @default(cuid())
-classTypeId String
-coachId     String
-startsAt    DateTime
-capacity    Int
-price       Decimal    @db.Decimal(10,2)
-bookings    Booking[]
-classType   ClassType  @relation(fields: [classTypeId], references: [id])
-coach       Coach      @relation(fields: [coachId], references: [id])
-@@index([startsAt])
-@@index([classTypeId])
-@@index([coachId])
+  id          String     @id @default(cuid())
+  classTypeId String
+  coachId     String
+  startsAt    DateTime
+  capacity    Int
+  price       Decimal    @db.Decimal(10, 2)
+  bookings    Booking[]
+  classType   ClassType  @relation(fields: [classTypeId], references: [id])
+  coach       Coach      @relation(fields: [coachId], references: [id])
+
+  @@index([startsAt])
+  @@index([classTypeId])
+  @@index([coachId])
 }
+
 model Booking {
-id        String        @id @default(cuid())
-userId    String
-sessionId String
-status    BookingStatus @default(BOOKED)
-createdAt DateTime      @default(now())
-user      User         @relation(fields: [userId], references: [id])
-session   ClassSession @relation(fields: [sessionId], references: [id])
-@@unique([userId, sessionId])
-@@index([sessionId, status])
+  id        String        @id @default(cuid())
+  userId    String
+  sessionId String
+  status    BookingStatus @default(BOOKED)
+  createdAt DateTime      @default(now())
+
+  user      User         @relation(fields: [userId], references: [id])
+  session   ClassSession @relation(fields: [sessionId], references: [id])
+
+  @@unique([userId, sessionId])
+  @@index([sessionId, status])
 }
+
 enum BookingStatus {
-BOOKED
-CANCELLED
+  BOOKED
+  CANCELLED
 }
