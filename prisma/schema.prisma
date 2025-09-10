@@ -16,6 +16,8 @@ model User {
   bookings  Booking[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  WaitlistEntry WaitlistEntry[]
 }
 
 enum Role {
@@ -60,6 +62,7 @@ model ClassSession {
   @@index([startsAt])
   @@index([classTypeId])
   @@index([coachId])
+  WaitlistEntry WaitlistEntry[]
 }
 
 model Booking {
@@ -79,4 +82,25 @@ model Booking {
 enum BookingStatus {
   BOOKED
   CANCELLED
+}
+
+model WaitlistEntry {
+  id         String       @id @default(cuid())
+  userId     String
+  sessionId  String
+  status     WaitlistStatus @default(PENDING)
+  position   Int
+  createdAt  DateTime     @default(now())
+
+  user       User         @relation(fields: [userId], references: [id])
+  session    ClassSession @relation(fields: [sessionId], references: [id])
+
+  @@unique([userId, sessionId])
+  @@index([sessionId, status, position])
+}
+
+enum WaitlistStatus {
+  PENDING   // ожидает место
+  PROMOTED  // переведён в бронь (для аудита)
+  CANCELLED // пользователь или система сняли из очереди
 }
