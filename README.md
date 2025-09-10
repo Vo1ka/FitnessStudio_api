@@ -1,98 +1,121 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
-
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
-## Project setup
-
-```bash
-$ npm install
-```
-
-## Compile and run the project
-
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
-```
-
-## Run tests
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
-
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+Базовая информация 
+	•	Базовый URL (dev): http://localhost:3000	•	Формат запросов/ответов: JSON	•	Стандарты ошибок: единый формат
+	▪	Пример ошибки:
+{
+"error": {
+"code": "FULL_SESSION",
+"message": "Session is full",
+"path": "/bookings",
+"timestamp": "2025-09-10T12:34:56.000Z"
+}
+}	•	Статусы:
+	▪	2xx — успешно	▪	4xx — ошибка клиента (валидация/права/бизнес-логика)	▪	5xx — внутренняя ошибка	•	CORS:
+	▪	В деве разрешён http://localhost:3000 (Next.js)	▪	Включены credentials для работы cookie с refresh	•	Аутентификация:
+	▪	Authorization: Bearer <accessToken> для защищённых эндпоинтов	▪	Refresh-токен:
+	◦	Web: httpOnly cookie refresh_token (выдаётся/обновляется на /auth/login и /auth/refresh)	◦	Mobile/Desktop/TG: refreshToken также дублируется в теле ответа (можно хранить безопасно на клиенте)
+Модели (упрощённо)
+	•	User: { id, email, name, role }	•	Coach: { id, name, bio?, avatarUrl? }	•	ClassType: { id, title, description?, durationMinutes, intensity: 'LOW'|'MEDIUM'|'HIGH' }	•	ClassSession: { id, classTypeId, coachId, startsAt, capacity, price, classType, coach }	•	Booking: { id, userId, sessionId, status: 'BOOKED'|'CANCELLED', createdAt, session }	•	WaitlistEntry (если включено): { id, userId, sessionId, status: 'PENDING'|'PROMOTED'|'CANCELLED', position, createdAt }
+Индексы/ограничения:
+	•	Booking: @@unique([userId, sessionId]) — нельзя дважды забронировать одну сессию	•	ClassSession.capacity — максимальное число активных BOOKED
+Аутентификация
+	•	POST /auth/register
+	▪	Тело: { email, password, name }	▪	Ответ 201: { user: { id, email, name, role, createdAt } }	▪	Валидация: email — валидный, password — минимум 8 символов	▪	Ошибки:
+	◦	400 EMAIL_EXISTS — Email already registered	•	POST /auth/login
+	▪	Тело: { email, password }	▪	Ответ 200: { accessToken, refreshToken }
+	◦	Также в ответе устанавливается httpOnly cookie refresh_token	▪	Ошибки:
+	◦	401 INVALID_CREDENTIALS	•	POST /auth/refresh
+	▪	Тело: { refreshToken } — для Mobile/Desktop/TG
+	◦	Для Web можно положиться на cookie refresh_token и передавать пустое тело, если реализовано чтение из cookie на бэке (по умолчанию ожидаем тело)	▪	Ответ 200: { accessToken, refreshToken }
+	◦	Кука refresh_token обновляется	▪	Ошибки:
+	◦	401 INVALID_REFRESH_TOKEN	•	POST /auth/logout
+	▪	Очищает refresh_cookie	▪	Ответ 200: { ok: true }
+Примечания для фронта:
+	•	Access храните в памяти и/или хранилище клиента, используйте Bearer для запросов.	•	При 401 на защищённом эндпоинте инициируйте обновление токена через /auth/refresh.	•	Для Web:
+	▪	Кросс-доменные запросы с credentials: include, чтобы получались/отправлялись cookie.
+Каталоги (публичные)
+	•	GET /catalog/class-types
+	▪	Ответ 200: ClassType[]	•	GET /catalog/coaches
+	▪	Ответ 200: Coach[]
+Расписание
+	•	GET /sessions
+	▪	Параметры query:
+	◦	date: YYYY-MM-DD — опционально (фильтр на день, UTC-диапазон 00:00–23:59)	◦	classTypeId?: string	◦	coachId?: string	◦	page?: number (по умолчанию 1)	◦	limit?: number (по умолчанию 20, максимум 100)	▪	Ответ 200:
+{
+items: Array<{
+id, startsAt, capacity, price,
+classType: { id, title, durationMinutes, intensity },
+coach: { id, name }
+}>,
+total: number,
+page: number,
+limit: number
+}	•	GET /sessions/:id
+	▪	Ответ 200:
+{
+id, startsAt, capacity, price,
+classType: {...},
+coach: {...},
+bookings: Booking[] // может быть опционально скрыто от пользователя — по требованиям
+}	▪	404 NOT_FOUND — если сессия не существует
+Примечания для фронта:
+	•	Для списка используйте пагинацию по page/limit.	•	Для фильтров применяйте debounce и React Query для кэша.
+Бронирования (защищённые, Authorization: Bearer)
+	•	GET /bookings/my?page=&limit=
+	▪	Ответ 200:
+{
+items: Array<{
+id, status, createdAt,
+session: {
+id, startsAt, capacity, price,
+classType: { id, title, intensity, durationMinutes },
+coach: { id, name }
+}
+}>,
+total, page, limit
+}	•	POST /bookings
+	▪	Тело: { sessionId: string }	▪	Ответ 201: Booking (включая session с вложенными сущностями)	▪	Ошибки:
+	◦	400 ALREADY_BOOKED — уже есть активная бронь на эту сессию	◦	400 FULL_SESSION — мест нет (см. Waitlist ниже)	◦	404 NOT_FOUND — сессия не найдена	•	POST /bookings/:id/cancel
+	▪	Ответ 200: { ok: true }	▪	Ошибки:
+	◦	403 FORBIDDEN — не владелец и не ADMIN	◦	404 NOT_FOUND — если бронь не существует (идемпотентно можно возвращать ok: true)
+UX-подсказки:
+	•	После успешной брони инвалируйте кэш запросов списка сессий и «моих броней».	•	При FULL_SESSION предложите «Встать в очередь» (см. ниже).
+Очередь (если включена)
+	•	POST /waitlist
+	▪	Тело: { sessionId: string }	▪	Ответ 200: WaitlistEntry	▪	Ошибки:
+	◦	400 ALREADY_BOOKED — если уже есть активная бронь	◦	200 (идемпотентно) — если уже стоите в очереди	•	GET /waitlist/my
+	▪	Ответ 200: Array<WaitlistEntry> (обычно только PENDING интересны)	•	POST /waitlist/:id/cancel
+	▪	Ответ 200: { ok: true }
+Автоматическое продвижение:
+	•	После отмены чьей-то брони или увеличения capacity бэкенд в транзакции:
+	▪	Проверит свободное место	▪	Выберет следующего PENDING из очереди (минимальный position/createdAt)	▪	Создаст Booking и обновит WaitlistEntry → PROMOTED
+Примечания:
+	•	Если пользователь уже успел забронировать самостоятельно, запись в очереди будет отменена, и продвинется следующий.
+Конвенции по ошибкам и коды для фронта
+Чаще всего фронт должен различать:
+	•	INVALID_CREDENTIALS — неверный email/пароль на /auth/login	•	INVALID_REFRESH_TOKEN — /auth/refresh	•	EMAIL_EXISTS — повторная регистрация	•	NOT_FOUND — ресурс не найден (сессия/бронь)	•	FORBIDDEN — доступ запрещён	•	FULL_SESSION — нет мест на сессию	•	ALREADY_BOOKED — повторная попытка брони той же сессии
+Фронт может ориентироваться на поле error.code и показывать соответствующие сообщения/диалоги.
+Формат цен и времени
+	•	Цена: поле price — Decimal (на стороне клиента рекомендуется хранить/форматировать локально)	•	Время: startsAt — ISO-строка в UTC. В клиенте отображайте с учётом локали/часового пояса.
+Аутентификация для разных клиентов
+	•	Web:
+	▪	accessToken хранить в памяти; refresh — httpOnly cookie (credentials: 'include' на запросах /auth/login, /auth/refresh, /auth/logout)	▪	при 401 повторять запрос после успешного refresh	•	React Native / Electron:
+	▪	использовать refreshToken из тела ответа, хранить в безопасном хранилище	•	Telegram Mini App:
+	▪	верифицировать initData на бэке и обменивать на JWT (в отдельном эндпоинте /auth/telegram — опционально)	▪	после обмена использовать JWT как Web/Mobile
+Примеры запросов (curl)
+	•	Регистрация:
+curl -X POST http://localhost:3000/auth/register -H "Content-Type: application/json" -d '{"email":"u@test.com","password":"Passw0rd!","name":"User"}'	•	Логин:
+curl -X POST http://localhost:3000/auth/login -H "Content-Type: application/json" -d '{"email":"u@test.com","password":"Passw0rd!"}' -c cookies.txt	•	Список типов:
+curl http://localhost:3000/catalog/class-types	•	Сессии:
+curl "http://localhost:3000/sessions?date=2025-09-10&page=1&limit=20"	•	Бронь:
+curl -X POST http://localhost:3000/bookings -H "Authorization: Bearer <accessToken>" -H "Content-Type: application/json" -d '{"sessionId":"<id>"}'	•	Мои брони:
+curl http://localhost:3000/bookings/my -H "Authorization: Bearer <accessToken>"	•	Отмена:
+curl -X POST http://localhost:3000/bookings/<bookingId>/cancel -H "Authorization: Bearer <accessToken>"
+Переменные окружения (dev)
+	•	DATABASE_URL=postgresql://app:app@localhost:5432/fitness?schema=public	•	JWT_SECRET=<генерируйте случайную длинную строку>	•	ACCESS_TOKEN_TTL=15m	•	REFRESH_TOKEN_TTL=30d	•	COOKIE_DOMAIN=localhost	•	PORT=3000
+Локальный запуск (кратко)
+	•	Docker (Postgres):
+	▪	docker compose up -d	•	Миграции и сиды:
+	▪	npx prisma generate	▪	npx prisma migrate dev --name init	▪	npx prisma db seed	•	Запуск API:
+	▪	npm run start:dev	•	Документация:
+	▪	http://localhost:3000/docs	•	Просмотр БД:
+	▪	npx prisma studio

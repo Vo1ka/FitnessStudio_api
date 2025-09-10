@@ -1,3 +1,5 @@
+import { IsString } from "class-validator";
+
 export class CreateBookingDto {
-    sessionId!: string;
+    @IsString() sessionId!: string;
 }
