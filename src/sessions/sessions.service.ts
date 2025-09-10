@@ -1,9 +1,13 @@
-// src/sessions/sessions.service.ts
 import { Injectable } from '@nestjs/common';
-import { addDays, startOfDay, endOfDay } from 'date-fns';
 import { PrismaService } from 'prisma/prisma.service';
 
-type ListParams = { date?: string; classTypeId?: string; coachId?: string; page: number; limit: number };
+type ListParams = {
+    date?: string;
+    classTypeId?: string;
+    coachId?: string;
+    page: number;
+    limit: number;
+};
 
 @Injectable()
 export class SessionsService {
@@ -12,8 +16,12 @@ export class SessionsService {
     async list({ date, classTypeId, coachId, page, limit }: ListParams) {
         const where: any = {};
         if (date) {
-            const d = new Date(date);
-            where.startsAt = { gte: startOfDay(d), lte: endOfDay(d) };
+            // ожидаем date в формате YYYY-MM-DD
+            const d = new Date(date + 'T00:00:00.000Z');
+            const start = new Date(d);
+            const end = new Date(d);
+            end.setUTCHours(23, 59, 59, 999);
+            where.startsAt = { gte: start, lte: end };
         }
         if (classTypeId) where.classTypeId = classTypeId;
         if (coachId) where.coachId = coachId;

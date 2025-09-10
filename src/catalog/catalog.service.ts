@@ -3,14 +3,17 @@ import { PrismaService } from 'prisma/prisma.service';
 
 @Injectable()
 export class CatalogService {
-    
     constructor(private readonly prisma: PrismaService) {}
 
     getClassTypes() {
-        return this.prisma.classType.findMany({ orderBy: { title: 'asc' } });
+        return this.prisma.classType.findMany({
+            orderBy: { title: 'asc' },
+        });
     }
 
     getCoaches() {
-        return this.prisma.coach.findMany({ orderBy: { name: 'asc' } });
+        return this.prisma.coach.findMany({
+            orderBy: { name: 'asc' },
+        });
     }
 }
